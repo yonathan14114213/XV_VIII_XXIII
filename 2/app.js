@@ -23,16 +23,20 @@ const users = [{
     id: 4,
     'e-mail': 'yoni@example.com'
 }]
-//res.send(users.filter(id) => (id === users.))
 
-app.get('/user/:id', (req, res) => {
+app.get('/user/:id', (req, res)=>{
     const id = req.params.id
-    for(let i = 0;i < users.length-1;i++){
-        if (users[i].id === id){
-            res.send(users[i])
-        }
-    } 
-});
+    res.send(users[id])
+ })
+
+// app.get('/user/:id', (req, res) => {
+//     const id = req.params.id
+//     for(let i = 0;i < users.length-1;i++){
+//         if (users[i].id === id){
+//             res.send(users[i])
+//         }
+//     } 
+// });
 
 app.listen(port, () => {
     console.log(`Server is up and running on port:${port}`);
