@@ -5,53 +5,47 @@ const port = 3000;
 app.use(express.json());
 
 const bcrypt = require('bcrypt');
-const saltRounds = 5;
 
-const myUser = {
-    name: 'menahem eisenbreg',
-    id: uuidv4(),
-    Email: "menahem@example.com",
-    password: ""
-};
+/*
+function enigma(password) {
+    bcrypt.hashSync(password.toString(), 10);
+    {
+        return hashed;
+    }
+}*/
 
- async function enigma(password, i) {return await bcrypt.hash(password.toString(), 10)}
-.then(hashed => {
-    a.password = hashed;
-    return 
-})
-.then(console.log);
-}
+
 
 const users = [{
     'name': 'menahem eisenbreg',
     'id': uuidv4(),
     Email: "menahem@example.com",
-    password: enigma('jhg', 0).then(hash => users[0].password = hash)
+    password: enigma('jhg')
 },{
     name: 'yael eisenberg',
     id: uuidv4(),
     Email: 'yael@example.com',
-    password:""
+    password:enigma('tfdytd')
 },{
     name: 'noa eisenberg',
     id: uuidv4(),
     Email: 'noa@example.com',
-    password: enigma('hogla', users, 2)
+    password: enigma(" ")
 },{
     name: 'yitzik eisenberg',
     id: uuidv4(),
     Email: 'yitzik@example.com',
-    password:enigma("goat", users, 3)
+    password:enigma("gnfnhgftnyh")
 },{
     name: 'yoni eisenberg',
     id: uuidv4(),
     Email: 'yoni@example.com',
-    password:("yonathan", users, 4)
+    password: enigma("yonathan")
 }]
-.then(
-    app.get('/', (req, res)=>{
-        res.send(users[0].password)
-    }));
+
+app.get('/', (req, res)=>{
+    res.send(users[0].password);
+});
 
 app.get('/user/:id', (req, res)=>{
     res.send(users[req.params.id]);
@@ -62,7 +56,7 @@ app.post('/', (req, res)=>{
         name: req.body.name,
         id: uuidv4(),
         Email: req.body.Email,
-        password: enigma(req.body.password, users, saltRounds)
+        password: enigma(req.body.password)
     });
     res.send(users);
     saltRounds+=1;
@@ -95,7 +89,7 @@ app.post('/login/:email/:password', (req, res)=>{
             res.send('the password is uncorrect');
         }
         if (req.params.email===users[i].Email && req.params.password===users[i].password) {
-            res.send('user connected')
+            res.send('user connected');
         }
     }
 })
